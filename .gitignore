@@ -1,0 +1,14 @@
+# IDE
+**/.vscode
+**/.idea
+
+# MacOS
+**/.DS_Store
+
+# Markdown (temporary files from iWriter Pro)
+**/._*.md
+
+# Python
+**/venv
+**/__pycache__
+**/.pytest_cache
