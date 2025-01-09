@@ -2,12 +2,12 @@
 
 _ConnectionZ - это Python библиотека для графового анализа, нацеленная на продуктовое применение. Содержит множество инструментов, готовых для применения "из коробки", а также подробные инструкции с описанием принципов работы каждого алгоритма и модуля._
 
-![version](documentation/images/badges/actual_version.svg) 
-![supported python versions](documentation/images/badges/supported_python_versions.svg) 
-![license](documentation/images/badges/actual_license.svg) 
-![pytest total](documentation/images/badges/pytest_total.svg) 
-![pytest coverage](documentation/images/badges/pytest_coverage.svg) 
-![pylint rating](documentation/images/badges/pylint_rating.svg) 
+![version](documentation/images/badges/actual_version.svg)
+![supported python versions](documentation/images/badges/supported_python_versions.svg)
+![license](documentation/images/badges/actual_license.svg)
+![pytest total](documentation/images/badges/pytest_total.svg)
+![pytest coverage](documentation/images/badges/pytest_coverage.svg)
+![pylint rating](documentation/images/badges/pylint_rating.svg)
 
 ## Установка
 
@@ -21,7 +21,7 @@ git clone git@github.com:ekertn7/ConnectionZ.git
 
 ```python
 import sys
-sys.path.insert('~/Downloads/ConnectionZ')
+sys.path.insert(1, '~/Downloads/ConnectionZ')
 import connectionz as cnnnz
 # your code
 ```

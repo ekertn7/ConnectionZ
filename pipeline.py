@@ -15,6 +15,8 @@ import re
 import sys
 import subprocess
 from dataclasses import dataclass
+from urllib.error import URLError
+import wget
 
 
 def get_pytest_report() -> tuple[int, int]:
@@ -71,7 +73,7 @@ def get_actual_license() -> str:
     """Returns actual license"""
     with open('LICENSE', 'r', encoding='utf-8') as file:
         first_line = file.readline()
-    actual_license = first_line.replace('\n', '').replace(' ', '%20')
+    actual_license = first_line.replace('\n', '').replace('License', '').strip().replace(' ', '%20')
 
     return actual_license
 
@@ -126,18 +128,23 @@ def main():
 
     badges = [
         Badge('pytest_total.svg', 'pytest', pytest_total, 'purple'),
-        Badge('pytest_coverage.svg', 'coverage', f'{pytest_coverage}%25', pytest_coverage_color),
+        Badge('pytest_coverage.svg', 'coverage', f'{pytest_coverage}%', pytest_coverage_color),
         Badge('pylint_rating.svg', 'pylint', pylint_rating, pylint_rating_color),
         Badge('actual_version.svg', 'version', actual_version, 'blue'),
         Badge('actual_license.svg', 'license', actual_license, 'blue'),
-        Badge('supported_python_versions.svg', 'python', '%20|%20'.join(python_versions), 'blue'),
+        Badge('supported_python_versions.svg', 'python', ' | '.join(python_versions), 'blue'),
     ]
 
     for badge in badges:
-        status, _ = subprocess.getstatusoutput(
-            (f'wget -O documentation/images/badges/{badge.file_name} '
-             f'"https://badgen.net/badge/{badge.subject}/{badge.value}?color={badge.color}"'))
-        if status == 0:
+        badge_url = f'https://badgen.net/badge/{badge.subject}/{badge.value}?color={badge.color}'
+        badge_path = f'documentation/images/badges/{badge.file_name}'
+        if os.path.exists(badge_path):
+            os.remove(badge_path)
+        try:
+            wget.download(url=badge_url, out=badge_path, bar=None)
+        except URLError:
+            print(f'Error while downloading {badge.file_name}')
+        else:
             print(f'Badge {badge.file_name} updated')
 
     print()
