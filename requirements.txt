@@ -2,4 +2,3 @@ pytest==8.3.4
 pytest-cov
 pytest-benchmark
 pylint
-wget
