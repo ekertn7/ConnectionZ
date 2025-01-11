@@ -11,29 +11,9 @@
 # - exit code 2 = pylint rating is too low
 # - exit code 3 = error downloading badges
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ HANDLING CTRL+C ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-function cleanup() {
-    echo
-    echo "CTRL+C pressed, clean up things before exiting..."
-    # clean up
-    rm -rf ./venv3.9 > /dev/null 2>&1
-    rm -rf ./venv3.10 > /dev/null 2>&1
-    rm -rf ./venv3.11 > /dev/null 2>&1
-    rm -rf ./venv3.12 > /dev/null 2>&1
-    rm -rf ./venv3.13 > /dev/null 2>&1
-    rm .coverage > /dev/null 2>&1
-    rm ./reports/* > /dev/null 2>&1
-    rm ./documentation/images/badges/*.svg > /dev/null 2>&1
-    # reset SIGINT handler to SIG_DFL, then resend signal to self
-    trap - INT
-    kill -INT "$$"
-}
-
-trap cleanup INT
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# print header
 function printheader() {
     PLACEHOLDER="~"
 
@@ -52,6 +32,21 @@ function printheader() {
     echo "$MESSAGE_L$MESSAGE$MESSAGE_R"
     echo
 }
+
+# handling CTRL+C
+function cleanup() {
+    echo
+    echo "CTRL+C pressed, clean up things before exiting..."
+
+    rm -rf ./venv3.* > /dev/null 2>&1
+    rm .coverage > /dev/null 2>&1
+    rm ./reports/* > /dev/null 2>&1
+
+    trap - INT
+    kill -INT "$$"
+}
+
+trap cleanup INT
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PYTEST ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -138,13 +133,13 @@ printheader "PYLINT"
 ./venv/bin/python -m pylint connectionz | tee ./reports/report_pylint.txt
 
 # getting pylint rating and calculating pylint rating badge color
-PYLINT_RATING=$(grep -Po "code\shas\sbeen\srated\sat\s\d{1,2}\.?\d{0,2}\/10" reports/report_pylint.txt | grep -Po "\d{1,2}\.?\d{0,2}" | head -n 1  | xargs printf "%0.2f\n")
+PYLINT_RATING=$(grep -Po "code\shas\sbeen\srated\sat\s\d{1,2}\.?\d{0,2}\/10" reports/report_pylint.txt | grep -Po "\d{1,2}\.?\d{0,2}" | head -n 1  | xargs printf "%0.1f\n")
 
-if (( $(echo "$PYLINT_RATING >= 9.5" | bc -l) )); then
+if (( $(echo "$PYLINT_RATING >= 9.9" | bc -l) )); then
     PYLINT_RATING_COLOR="green"
-elif (( $(echo "$PYLINT_RATING >= 8.0" | bc -l) )); then
+elif (( $(echo "$PYLINT_RATING >= 8.8" | bc -l) )); then
     PYLINT_RATING_COLOR="yellow"
-elif (( $(echo "$PYLINT_RATING >= 7.0" | bc -l) )); then
+elif (( $(echo "$PYLINT_RATING >= 7.7" | bc -l) )); then
     PYLINT_RATING_COLOR="orange"
 else
     echo "Pylint rating is too low ($PYLINT_RATING), fix this"
