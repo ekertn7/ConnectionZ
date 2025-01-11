@@ -1,0 +1,20 @@
+<svg width="75.3" height="20" viewBox="0 0 753 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="pytest: 176">
+  <title>pytest: 176</title>
+  <linearGradient id="rfluI" x2="0" y2="100%">
+    <stop offset="0" stop-opacity=".1" stop-color="#EEE"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <mask id="quuzx"><rect width="753" height="200" rx="30" fill="#FFF"/></mask>
+  <g mask="url(#quuzx)">
+    <rect width="443" height="200" fill="#555"/>
+    <rect width="310" height="200" fill="#94E" x="443"/>
+    <rect width="753" height="200" fill="url(#rfluI)"/>
+  </g>
+  <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
+    <text x="60" y="148" textLength="343" fill="#000" opacity="0.25">pytest</text>
+    <text x="50" y="138" textLength="343">pytest</text>
+    <text x="498" y="148" textLength="210" fill="#000" opacity="0.25">176</text>
+    <text x="488" y="138" textLength="210">176</text>
+  </g>
+  
+</svg>

@@ -1,0 +1,20 @@
+<svg width="196.8" height="20" viewBox="0 0 1968 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="python: 3.10 | 3.11 | 3.12 | 3.13">
+  <title>python: 3.10 | 3.11 | 3.12 | 3.13</title>
+  <linearGradient id="oOxmE" x2="0" y2="100%">
+    <stop offset="0" stop-opacity=".1" stop-color="#EEE"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <mask id="Cmacj"><rect width="1968" height="200" rx="30" fill="#FFF"/></mask>
+  <g mask="url(#Cmacj)">
+    <rect width="484" height="200" fill="#555"/>
+    <rect width="1484" height="200" fill="#08C" x="484"/>
+    <rect width="1968" height="200" fill="url(#oOxmE)"/>
+  </g>
+  <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
+    <text x="60" y="148" textLength="384" fill="#000" opacity="0.25">python</text>
+    <text x="50" y="138" textLength="384">python</text>
+    <text x="539" y="148" textLength="1384" fill="#000" opacity="0.25">3.10 | 3.11 | 3.12 | 3.13</text>
+    <text x="529" y="138" textLength="1384">3.10 | 3.11 | 3.12 | 3.13</text>
+  </g>
+  
+</svg>

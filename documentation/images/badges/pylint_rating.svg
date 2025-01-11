@@ -1,0 +1,20 @@
+<svg width="68.7" height="20" viewBox="0 0 687 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="pylint: 9.9">
+  <title>pylint: 9.9</title>
+  <linearGradient id="lMkQn" x2="0" y2="100%">
+    <stop offset="0" stop-opacity=".1" stop-color="#EEE"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <mask id="ndUxV"><rect width="687" height="200" rx="30" fill="#FFF"/></mask>
+  <g mask="url(#ndUxV)">
+    <rect width="407" height="200" fill="#555"/>
+    <rect width="280" height="200" fill="#3C1" x="407"/>
+    <rect width="687" height="200" fill="url(#lMkQn)"/>
+  </g>
+  <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
+    <text x="60" y="148" textLength="307" fill="#000" opacity="0.25">pylint</text>
+    <text x="50" y="138" textLength="307">pylint</text>
+    <text x="462" y="148" textLength="180" fill="#000" opacity="0.25">9.9</text>
+    <text x="452" y="138" textLength="180">9.9</text>
+  </g>
+  
+</svg>
