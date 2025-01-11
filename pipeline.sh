@@ -1,8 +1,15 @@
 #!/bin/bash
 
-# exit code 1 = tests failed using latest python version
-# exit code 2 = pylint rating is too low
-# exit code 3 = error downloading badges
+# script that
+# - runs pytest using multiple python interpreters and get information about number of tests and code coverage percent
+# - runs pylint and get pylint rating
+# - gets actual project version and actual license
+# - downloads badges from badgen.net
+
+# exit codes explanation
+# - exit code 1 = tests failed using latest python version
+# - exit code 2 = pylint rating is too low
+# - exit code 3 = error downloading badges
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ HANDLING CTRL+C ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
