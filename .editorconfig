@@ -10,5 +10,8 @@ charset = utf-8
 [*.py]
 trim_trailing_whitespace = true
 
-[**.md]
+[*.md]
 trim_trailing_whitespace = false
+
+[*.sh]
+trim_trailing_whitespace = true
