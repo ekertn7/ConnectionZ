@@ -367,10 +367,11 @@ class Graph(ABC):
         self.nodes = {}
         self.edges = {}
 
+    @staticmethod
     @abstractmethod
-    def _couple_representation(
-            self, couple: tuple[Identifier, Identifier]
-            ) -> tuple[Identifier, Identifier]:
+    def couple_representation(
+            couple: tuple[Identifier, Identifier]
+        ) -> tuple[Identifier, Identifier]:
         """Couple representation for different graph types"""
 
     def add_edge(
@@ -414,7 +415,7 @@ class Graph(ABC):
             raise WrongTypeOfNodeIdentifierException()
 
         # couple representation
-        couple = self._couple_representation((node_l, node_r))
+        couple = self.couple_representation((node_l, node_r))
 
         # validate identifier
         if identifier is None:
@@ -482,7 +483,7 @@ class Graph(ABC):
             raise WrongTypeOfNodeIdentifierException()
 
         # couple representation
-        couple = self._couple_representation((node_l, node_r))
+        couple = self.couple_representation((node_l, node_r))
 
         # couple validation
         if self.edges.get(couple) is None:
@@ -515,7 +516,7 @@ class Graph(ABC):
             raise WrongTypeOfNodeIdentifierException()
 
         # couple representation
-        couple = self._couple_representation((node_l, node_r))
+        couple = self.couple_representation((node_l, node_r))
 
         if identifier is None:
             return couple in self.edges

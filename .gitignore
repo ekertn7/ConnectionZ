@@ -9,9 +9,10 @@
 **/._*.md
 
 # Python
-**/venv
+**/venv*
 **/__pycache__
 **/.pytest_cache
+**/.coverage
 
 # Pipeline
 reports/**

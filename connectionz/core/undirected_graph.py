@@ -47,9 +47,10 @@ class UndirectedGraph(Graph):
     def __init__(self, nodes: Nodes = None, edges: Edges = None):
         super().__init__(nodes=nodes, edges=edges)
 
-    def _couple_representation(
-            self, couple: tuple[Identifier, Identifier]
-            ) -> tuple[Identifier, Identifier]:
+    @staticmethod
+    def couple_representation(
+            couple: tuple[Identifier, Identifier]
+        ) -> tuple[Identifier, Identifier]:
         """Couple representation for directed graph"""
         return tuple(sorted(couple))
 
@@ -71,7 +72,7 @@ class UndirectedGraph(Graph):
         if len(self.edges) == 0:
             return False
         edges_length = len({
-            self._couple_representation((node_l, node_r))
+            self.couple_representation((node_l, node_r))
             for (node_l, node_r) in self.edges
             if node_l != node_r})
         max_edges_length = (len(self.nodes) * (len(self.nodes) - 1)) / 2

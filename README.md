@@ -21,7 +21,7 @@ git clone git@github.com:ekertn7/ConnectionZ.git
 
 ```python
 import sys
-sys.path.insert(1, '~/Downloads/ConnectionZ')
+sys.path.append('~/Downloads/ConnectionZ')
 import connectionz as cnnnz
 # your code
 ```
