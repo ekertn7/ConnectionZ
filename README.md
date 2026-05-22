@@ -2,12 +2,12 @@
 
 _ConnectionZ - это Python библиотека для графового анализа, нацеленная на продуктовое применение. Содержит множество инструментов, готовых для применения "из коробки", а также подробные инструкции с описанием принципов работы каждого алгоритма и модуля._
 
-![version](documentation/images/badges/actual_version.svg)
-![supported python versions](documentation/images/badges/supported_python_versions.svg)
-![license](documentation/images/badges/actual_license.svg)
-![pytest total](documentation/images/badges/pytest_total.svg)
-![pytest coverage](documentation/images/badges/pytest_coverage.svg)
-![pylint rating](documentation/images/badges/pylint_rating.svg)
+[![version](documentation/images/badges/actual_version.svg)]()
+[![supported python versions](documentation/images/badges/supported_python_versions.svg)]()
+[![license](documentation/images/badges/actual_license.svg)](/LICENSE)
+[![pytest total](documentation/images/badges/pytest_total.svg)]()
+[![pytest coverage](documentation/images/badges/pytest_coverage.svg)]()
+[![pylint rating](documentation/images/badges/pylint_rating.svg)]()
 
 ## Установка
 
@@ -44,6 +44,8 @@ _В ближайшее время мы обязательно разместим
 
 -   [Основы работы](/documentation/graph.md)
 -   [Импорт и экспорт графа](/documentation/import_export.md)
+-   Алгоритмы
+    -   [Поиск кратчайшего пути и расстояния между вершинами с помощью алгоритма Дейкстры](/documentation/algorithm_dijkstra.md)
 -   [Теория графов](/documentation/theoretics.md)
 
 ## Лицензия

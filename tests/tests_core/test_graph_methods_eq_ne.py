@@ -1,13 +1,13 @@
-"""Tests DirectedGraph and UndirectedGraph method `__eq__`"""
+"""Tests DirectedGraph and UndirectedGraph methods `__eq__` and `__ne__`"""
 
 from connectionz import DirectedGraph, UndirectedGraph
 
 
 class TestsDirectedGraphMethodEq:
-    """Tests of DirectedGraph method `__eq__`"""
+    """Tests of DirectedGraph methods `__eq__` and `__ne__`"""
 
     def test_negative_different_nodes(self):
-        """Using method `__eq__`, negative case since the nodes are different"""
+        """Using method `__ne__`, negative case since the nodes are different"""
         first_graph = DirectedGraph(
             nodes={'Alex': {'age': 19}, 'Bella': {'age': 18}},  # different node attributes
             edges={('Alex', 'Bella'): {'2024-05-12': {'amount': 1900}}} )
@@ -17,7 +17,7 @@ class TestsDirectedGraphMethodEq:
         assert first_graph != second_graph
 
     def test_negative_different_edges(self):
-        """Using method `__eq__`, negative case since the edges are different
+        """Using method `__ne__`, negative case since the edges are different
         (because edge identifiers were generated automatically)
         """
         first_graph = DirectedGraph(
@@ -29,7 +29,7 @@ class TestsDirectedGraphMethodEq:
         assert first_graph != second_graph
 
     def test_negative_different_types(self):
-        """Using method `__eq__`, negative case since the graph types are different"""
+        """Using method `__ne__`, negative case since the graph types are different"""
         first_graph = DirectedGraph()
         second_graph = UndirectedGraph()
         assert first_graph != second_graph
@@ -46,10 +46,10 @@ class TestsDirectedGraphMethodEq:
 
 
 class TestsUndirectedGraphMethodEq:
-    """Tests of UndirectedGraph method `__eq__`"""
+    """Tests of UndirectedGraph methods `__eq__` and `__ne__`"""
 
     def test_negative_different_nodes(self):
-        """Using method `__eq__`, negative case since the nodes are different"""
+        """Using method `__ne__`, negative case since the nodes are different"""
         first_graph = UndirectedGraph(
             nodes={'Alex': {'age': 19}, 'Bella': {'age': 18}},  # different node attributes
             edges={('Alex', 'Bella'): {'2024-05-12': {'amount': 1900}}} )
@@ -59,7 +59,7 @@ class TestsUndirectedGraphMethodEq:
         assert first_graph != second_graph
 
     def test_negative_different_edges(self):
-        """Using method `__eq__`, negative case since the edges are different
+        """Using method `__ne__`, negative case since the edges are different
         (because edge identifiers were generated automatically)
         """
         first_graph = UndirectedGraph(
@@ -71,7 +71,7 @@ class TestsUndirectedGraphMethodEq:
         assert first_graph != second_graph
 
     def test_negative_different_types(self):
-        """Using method `__eq__`, negative case since the graph types are different"""
+        """Using method `__ne__`, negative case since the graph types are different"""
         first_graph = UndirectedGraph()
         second_graph = DirectedGraph()
         assert first_graph != second_graph

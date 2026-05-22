@@ -1,0 +1,6 @@
+
+
+* Added Dijkstra's algorithm with `find_shortest_path` and `find_shortest_distance` methods
+
+* Refactored core module including
+    - reformed `_couple_representation` method -> `couple_representation` static method

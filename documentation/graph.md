@@ -465,9 +465,11 @@ _Полный направленный граф - это граф, в котор
 
 Пример для полного ненаправленного графа:
 
+![complete undirected graph](/documentation/images/complete_undirected_graph.png)
+
 ```python
 >>> import connectionz as cnnnz
->>> graph = UndirectedGraph(
+>>> graph = cnnnz.UndirectedGraph(
 ...     nodes=['A', 'B', 'C', 'D'],
 ...     edges=[
 ...         ('A', 'B'), ('A', 'C'), ('A', 'D'),
@@ -479,9 +481,11 @@ True
 
 Пример для полного направленного графа:
 
+![complete directed graph](/documentation/images/complete_directed_graph.png)
+
 ```python
 >>> import connectionz as cnnnz
->>> graph = DirectedGraph(
+>>> graph = cnnnz.DirectedGraph(
 ...     nodes=['A', 'B', 'C', 'D'],
 ...     edges=[
 ...         ('A', 'B'), ('A', 'C'), ('A', 'D'),
@@ -498,11 +502,13 @@ True
 
 Пример:
 
+![pseudo directed graph](/documentation/images/pseudo_directed_graph.png)
+
 ```python
 >>> import connectionz as cnnnz
->>> graph = DirectedGraph(
+>>> graph = cnnnz.DirectedGraph(
 ...     nodes=['A', 'B', 'C', 'D'],
-...     edges=[('A', 'A'), ('B', 'C'), ('C', 'D')])
+...     edges=[('A', 'A'), ('A', 'B'), ('B', 'C'), ('C', 'D'), ('D', 'A')])
 >>> graph.check_is_pseudo()
 True
 ```
@@ -515,7 +521,7 @@ True
 
 ```python
 >>> import connectionz as cnnnz
->>> graph = DirectedGraph(nodes=['A', 'B', 'C'])
+>>> graph = cnnnz.DirectedGraph(nodes=['A', 'B', 'C'])
 >>> graph.add_edge('A', 'B', weight=146)
 >>> graph.add_edge('B', 'C', weight=237)
 >>> graph.add_edge('B', 'C', weight=524)

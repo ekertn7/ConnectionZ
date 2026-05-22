@@ -2,14 +2,18 @@
 
 from . object_already_exists_exceptions import (
     NodeAlreadyExistsException,
-    EdgeAlreadyExistsException)
+    EdgeAlreadyExistsException,)
 from . object_isnot_exists_exceptions import (
     NodeIsNotExistsException,
+    NodeAttributeIsNotExistsException,
     CoupleIsNotExistsException,
-    EdgeIsNotExistsException)
+    EdgeIsNotExistsException,
+    EdgeAttributeIsNotExistsException,
+    PathBetweenNodesIsNotExistsException,
+    PathBetweenSameNodeCanNotExistException,)
 from . cannot_delete_basic_elements_exceptions import (
     CanNotDeleteNodesException,
-    CanNotDeleteEdgesException)
+    CanNotDeleteEdgesException,)
 from . validation_exceptions import (
     WrongTypeOfNodesException,
     WrongTypeOfNodeIdentifierException,
@@ -22,6 +26,6 @@ from . validation_exceptions import (
     WrongLengthOfMultipleEdgesException,
     WrongTypeOfEdgeIdentifierException,
     WrongTypeOfEdgeAttributesException,
-    DuplicationInEdgeIdentifiersException)
+    DuplicationInEdgeIdentifiersException,)
 from . wrong_file_extension_exception import (
-    WrongFileExtensionException)
+    WrongFileExtensionException,)

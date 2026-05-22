@@ -1,6 +1,6 @@
 """Graph implementation"""
 
-from typing import Iterable
+from typing import Iterable, Any
 from abc import ABC, abstractmethod
 from connectionz.core.identifier import Identifier, generate_identifier
 from connectionz.core.nodes import Nodes
@@ -13,8 +13,10 @@ from connectionz.exceptions.object_already_exists_exceptions import (
     EdgeAlreadyExistsException)
 from connectionz.exceptions.object_isnot_exists_exceptions import (
     NodeIsNotExistsException,
+    NodeAttributeIsNotExistsException,
     CoupleIsNotExistsException,
-    EdgeIsNotExistsException)
+    EdgeIsNotExistsException,
+    EdgeAttributeIsNotExistsException,)
 from connectionz.exceptions.validation_exceptions import (
     WrongTypeOfNodesException,
     WrongTypeOfNodeIdentifierException,
@@ -57,12 +59,10 @@ class Graph(ABC):
 
         # number of nodes
         nodes_number = description['number_of_nodes']
-        if nodes_number == 0:
-            nodes_message = 'without nodes'
-        elif nodes_number == 1:
-            nodes_message = f'with {nodes_number} node'
-        else:
-            nodes_message = f'with {nodes_number} nodes'
+        match nodes_number:
+            case 0: nodes_message = 'without nodes'
+            case 1: nodes_message = f'with {nodes_number} node'
+            case _: nodes_message = f'with {nodes_number} nodes'
 
         # number of couples
         couples_number = description['number_of_couples']
@@ -77,12 +77,10 @@ class Graph(ABC):
 
         # number of edges
         edges_number = description['number_of_edges']
-        if edges_number == 0:
-            edges_message = 'edges'
-        elif edges_number == 1:
-            edges_message = f'{edges_number} edge'
-        else:
-            edges_message = f'{edges_number} edges'
+        match edges_number:
+            case 0: edges_message = 'edges'
+            case 1: edges_message = f'{edges_number} edge'
+            case _: edges_message = f'{edges_number} edges'
 
         # message
         message = (
@@ -108,7 +106,17 @@ class Graph(ABC):
         raise CanNotDeleteNodesException()
 
     def _nodes_validation(self, nodes) -> Nodes:
-        """Validation function for nodes"""
+        """Validation function for nodes
+
+        Raises
+        ------
+        WrongTypeOfNodesException
+            If trying add node to the graph using wrong type of sequence
+        WrongTypeOfNodeIdentifierException
+            If trying add node to the graph with wrong type of node identifier
+        WrongTypeOfNodeAttributesException
+            If trying add node to the graph with wrong type of node attributes
+        """
 
         def check_node_identifier_type() -> None:
             """Checks that type of node identifier is Identifier"""
@@ -152,7 +160,32 @@ class Graph(ABC):
         raise CanNotDeleteEdgesException()
 
     def _edges_validation(self, edges) -> Edges:
-        """Validation function for directed edges"""
+        """Validation function for edges
+
+        Raises
+        ------
+        WrongTypeOfEdgesException
+            If trying add edge to the graph using wrong type of sequence
+        WrongTypeOfCoupleException
+            If trying add edge to the graph with wrong type of couple
+        WrongLengthOfCoupleException
+            If trying add edge to the graph with wrong length of couple
+        WrongTypeOfNodeIdentifierInCoupleException
+            If trying add edge to the graph with wrong type of node identifier
+            in couple
+        WrongTypeOfMultipleEdgesException
+            If trying add edge to the graph with wrong type of multiple edges
+        WrongLengthOfMultipleEdgesException
+            If trying add edge to the graph with wrong length of multiple edges
+            (if length of multiple edges == 0)
+        WrongTypeOfEdgeIdentifierException
+            If trying add edge to the graph with wrong type of edge identifier
+        WrongTypeOfEdgeAttributesException
+            If trying add edge to the graph with wrong type of edge attributes
+        DuplicationInEdgeIdentifiersException
+            If trying add edge to the graph with duplication in edge identifiers
+            incident to nodes from the same couple
+        """
 
         def check_couple_type() -> None:
             """Checks that type of couple is tuple"""
@@ -290,6 +323,13 @@ class Graph(ABC):
         Returns
         -------
             Node identifier
+
+        Raises
+        ------
+        WrongTypeOfNodeIdentifierException
+            If wrong type of node identifier passed in the `identifier` parameter
+        NodeAlreadyExistsException
+            If node already exist in graph
         """
 
         # validate identifier
@@ -331,6 +371,13 @@ class Graph(ABC):
                 - False: do nothing (best performance)
                     * use it when removing a large number of nodes,
                       then recalculate calculated attributes
+
+        Raises
+        ------
+        WrongTypeOfNodeIdentifierException
+            If wrong type of node identifier passed in the `identifier` parameter
+        NodeIsNotExistsException
+            If node is not exist in graph
         """
 
         if not isinstance(identifier, Identifier):
@@ -366,6 +413,52 @@ class Graph(ABC):
         """Removes all nodes from the graph"""
         self.nodes = {}
         self.edges = {}
+
+    def add_node_attribute(
+            self, identifier: Identifier, attribute_name: str,
+            attribute_value: Any) -> None:
+        """Adds attribute to the node"""
+
+        if self.nodes.get(identifier) is None:
+            raise NodeIsNotExistsException()
+
+        self.nodes[identifier][attribute_name] = attribute_value
+
+    def get_node_attributes(self, identifier: Identifier) -> set[str]:
+        """Gets all node attributes"""
+
+        node_attributes = self.nodes.get(identifier)
+
+        if node_attributes is None:
+            raise NodeIsNotExistsException()
+
+        return set(node_attributes)
+
+    def get_node_attribute(
+            self, identifier: Identifier, attribute_name: str) -> Any:
+        """Gets value of node attribute"""
+
+        if self.nodes.get(identifier) is None:
+            raise NodeIsNotExistsException()
+
+        node_attribute = self.nodes[identifier].get(attribute_name)
+
+        if node_attribute is None:
+            raise NodeAttributeIsNotExistsException()
+
+        return node_attribute
+
+    def del_node_attribute(
+            self, identifier: Identifier, attribute_name: str) -> None:
+        """Removes attribute from the node"""
+
+        if self.nodes.get(identifier) is None:
+            raise NodeIsNotExistsException()
+
+        if self.nodes[identifier].get(attribute_name) is None:
+            raise NodeAttributeIsNotExistsException()
+
+        del self.nodes[identifier][attribute_name]
 
     @staticmethod
     @abstractmethod
@@ -533,6 +626,93 @@ class Graph(ABC):
 
         self.clear_degree()
         self.clear_neighbors()
+
+    def get_edges(
+            self, node_l: Identifier, node_r: Identifier) -> set[Identifier]:
+        """Gets all edges of selected couple"""
+
+        couple = self.couple_representation((node_l, node_r))
+
+        edges = self.edges.get(couple)
+
+        if edges is None:
+            raise CoupleIsNotExistsException()
+
+        return set(edges)
+
+    def add_edge_attribute(
+            self, node_l: Identifier, node_r: Identifier,
+            identifier: Identifier, attribute_name: str,
+            attribute_value: Any) -> None:
+        """Adds attribute to the edge"""
+
+        couple = self.couple_representation((node_l, node_r))
+
+        if self.edges.get(couple) is None:
+            raise CoupleIsNotExistsException()
+
+        if self.edges[couple].get(identifier) is None:
+            raise EdgeIsNotExistsException()
+
+        if self.edges[couple][identifier].get(attribute_name) is None:
+            raise EdgeAttributeIsNotExistsException(attribute=attribute_name)
+
+        self.edges[couple][identifier][attribute_name] = attribute_value
+
+    def get_edge_attributes(
+            self, node_l: Identifier, node_r: Identifier,
+            identifier: Identifier) -> set[str]:
+        """Gets all edge attributes"""
+
+        couple = self.couple_representation((node_l, node_r))
+
+        if self.edges.get(couple) is None:
+            raise CoupleIsNotExistsException()
+
+        edge_attributes = self.edges[couple].get(identifier)
+
+        if self.edges[couple].get(identifier) is None:
+            raise EdgeIsNotExistsException()
+
+        return set(edge_attributes)
+
+    def get_edge_attribute(
+            self, node_l: Identifier, node_r: Identifier,
+            identifier: Identifier, attribute_name: str) -> Any:
+        """Gets value of edge attribute"""
+
+        couple = self.couple_representation((node_l, node_r))
+
+        if self.edges.get(couple) is None:
+            raise CoupleIsNotExistsException()
+
+        if self.edges[couple].get(identifier) is None:
+            raise EdgeIsNotExistsException()
+
+        edge_attribute = self.edges[couple][identifier].get(attribute_name)
+
+        if edge_attribute is None:
+            raise EdgeAttributeIsNotExistsException(attribute=attribute_name)
+
+        return edge_attribute
+
+    def del_edge_attribute(
+            self, node_l: Identifier, node_r: Identifier,
+            identifier: Identifier, attribute_name: str) -> None:
+        """Removes attribute from the edge"""
+
+        couple = self.couple_representation((node_l, node_r))
+
+        if self.edges.get(couple) is None:
+            raise CoupleIsNotExistsException()
+
+        if self.edges[couple].get(identifier) is None:
+            raise EdgeIsNotExistsException()
+
+        if self.edges[couple][identifier].get(attribute_name) is None:
+            raise EdgeAttributeIsNotExistsException(attribute=attribute_name)
+
+        del self.edges[couple][identifier][attribute_name]
 
     def get_subgraph(
             self, selected_nodes: Iterable[Identifier],
