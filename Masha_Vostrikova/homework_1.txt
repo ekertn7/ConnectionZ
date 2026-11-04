@@ -1,0 +1,2 @@
+origin	https://github.com/ekertn7/ConnectionZ.git (fetch)
+origin	https://github.com/ekertn7/ConnectionZ.git (push)
